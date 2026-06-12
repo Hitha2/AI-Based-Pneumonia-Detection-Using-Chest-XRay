@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Diagnostic Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-10">
+
+<div class="max-w-5xl mx-auto bg-white shadow-xl rounded-lg p-10">
+
+    <!-- HEADER -->
+    <div class="text-center border-b pb-6 mb-6">
+        <h1 class="text-3xl font-bold text-blue-700">
+            AI Diagnostic Center
+        </h1>
+        <p class="text-gray-600">Department of Radiology</p>
+        <h2 class="text-xl font-semibold mt-2">
+            Chest X-Ray Analysis Report
+        </h2>
+    </div>
+
+    <!-- PATIENT DETAILS -->
+    <h3 class="font-bold text-lg mb-3">Patient Details</h3>
+    <table class="w-full border mb-6">
+        <tr class="border">
+            <td class="p-2 font-medium">Patient ID</td>
+            <td class="p-2">{{ patient[0] }}</td>
+            <td class="p-2 font-medium">Name</td>
+            <td class="p-2">{{ patient[1] }}</td>
+        </tr>
+        <tr class="border">
+            <td class="p-2 font-medium">Age</td>
+            <td class="p-2">{{ patient[2] }}</td>
+            <td class="p-2 font-medium">Gender</td>
+            <td class="p-2">{{ patient[3] }}</td>
+        </tr>
+        <tr class="border">
+            <td class="p-2 font-medium">Report Date</td>
+            <td class="p-2">{{ patient[6] }}</td>
+            <td class="p-2 font-medium">Modality</td>
+            <td class="p-2">Digital Chest X-Ray</td>
+        </tr>
+    </table>
+
+    <!-- X-RAY IMAGE -->
+    <h3 class="font-bold text-lg mb-3">Chest X-Ray Image</h3>
+    <div class="flex justify-center mb-6">
+        <img src="{{ image_base64 }}"
+             class="w-72 border rounded-lg shadow">
+    </div>
+
+    <!-- X-RAY ANALYSIS (AI FINDINGS) -->
+    <h3 class="font-bold text-lg mb-3">
+        🔍 X-ray Analysis (AI Findings)
+    </h3>
+
+    <div class="border p-4 rounded-lg bg-gray-50 mb-6 text-gray-800">
+        {% if "PNEUMONIA" in patient[5] %}
+        <ul class="list-disc pl-6 space-y-2">
+            <li>Patchy opacities detected in one or more lung zones.</li>
+            <li>Increased radiographic density indicating alveolar consolidation.</li>
+            <li>Reduced lung transparency in affected regions.</li>
+            <li>Findings are suggestive of infectious pulmonary pathology.</li>
+            <li>AI confidence indicates a high probability of pneumonia.</li>
+        </ul>
+        {% else %}
+        <ul class="list-disc pl-6 space-y-2">
+            <li>Lung fields appear symmetrically aerated.</li>
+            <li>No focal opacities or abnormal consolidations detected.</li>
+            <li>Costophrenic angles are clear.</li>
+            <li>Cardiomediastinal silhouette is within normal limits.</li>
+            <li>No radiographic evidence of pneumonia.</li>
+        </ul>
+        {% endif %}
+    </div>
+
+    <!-- RADIOLOGICAL FINDINGS -->
+    <h3 class="font-bold text-lg mb-3">Radiological Findings</h3>
+    <table class="w-full border mb-6">
+        <tr class="border">
+            <td class="p-2 font-medium">Lung Opacity</td>
+            <td class="p-2">
+                {% if "PNEUMONIA" in patient[5] %}
+                    Present
+                {% else %}
+                    Not Detected
+                {% endif %}
+            </td>
+        </tr>
+        <tr class="border">
+            <td class="p-2 font-medium">Lung Fields</td>
+            <td class="p-2">
+                {% if "PNEUMONIA" in patient[5] %}
+                    Increased Density
+                {% else %}
+                    Clear
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <!-- AI RESULT -->
+    <h3 class="font-bold text-lg mb-3">AI Diagnostic Result</h3>
+    <div class="p-4 rounded mb-6
+        {% if 'PNEUMONIA' in patient[5] %}
+            bg-red-100 text-red-700
+        {% else %}
+            bg-green-100 text-green-700
+        {% endif %}
+    ">
+        <p class="text-xl font-bold">
+            {{ patient[5] }}
+        </p>
+    </div>
+
+    <!-- OBSERVATION -->
+    <h3 class="font-bold text-lg mb-3">Radiologist Observation</h3>
+    <p class="mb-6 text-gray-700">
+        {% if "PNEUMONIA" in patient[5] %}
+            Radiographic findings are suggestive of pneumonia.
+            Clinical correlation and appropriate treatment are recommended.
+        {% else %}
+            No radiographic evidence of pneumonia.
+            Findings are within normal limits.
+        {% endif %}
+    </p>
+
+    <!-- SIGNATURE -->
+    <div class="flex justify-between mt-10">
+        <p><strong>Radiologist:</strong> Dr. AI Diagnostics</p>
+        <p><strong>Signature:</strong> __________________</p>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="border-t pt-4 mt-6 text-sm text-gray-600">
+        ⚠️ This AI-generated report is intended for clinical assistance only.
+        Final diagnosis must be confirmed by a qualified medical professional.
+    </div>
+
+</div>
+
+</body>
+</html>

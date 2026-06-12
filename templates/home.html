@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow">
+  <h2 class="text-center text-xl font-semibold text-blue-600">Upload Chest X-Ray</h2>
+  <form method="POST" enctype="multipart/form-data" class="mt-6 space-y-4">
+    <input type="file" name="file" accept="image/*" required class="w-full p-2 border rounded">
+    <button class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">Predict</button>
+  </form>
+</div>
+{% endblock %}

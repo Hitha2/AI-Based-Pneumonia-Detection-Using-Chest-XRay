@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prescription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-10">
+
+<div class="max-w-5xl mx-auto bg-white p-8 shadow-lg rounded">
+
+<h1 class="text-2xl font-bold text-blue-700 mb-4">Doctor Prescription</h1>
+
+<p>
+<b>Patient:</b> {{ patient[1] }} |
+<b>Age:</b> {{ patient[2] }} |
+<b>Gender:</b> {{ patient[3] }}
+</p>
+
+<form method="POST" class="mt-6">
+
+<input type="hidden" name="medicines" id="medicinesData">
+
+<div id="medBox">
+    <div class="flex gap-2 mb-2">
+        <select class="border p-2 med">
+            <option>Paracetamol</option>
+            <option>Azithromycin</option>
+            <option>Amoxicillin</option>
+            <option>Cetirizine</option>
+            <option>Pantoprazole</option>
+        </select>
+
+        <select class="border p-2 dose">
+            <option>500 mg</option>
+            <option>650 mg</option>
+            <option>40 mg</option>
+        </select>
+
+        <select class="border p-2 freq">
+            <option>Once Daily</option>
+            <option>Twice Daily</option>
+            <option>Thrice Daily</option>
+            <option>SOS</option>
+        </select>
+
+        <input class="border p-2 days" placeholder="5 days">
+    </div>
+</div>
+
+<button type="button" onclick="addRow()"
+        class="bg-blue-600 text-white px-4 py-2 rounded mt-2">
+➕ Add Medicine
+</button>
+
+<textarea name="advice"
+          class="w-full border p-3 mt-4"
+          placeholder="Doctor Advice"></textarea>
+
+<input name="followup"
+       class="w-full border p-3 mt-3"
+       placeholder="Follow up after 7 days">
+
+<button onclick="prepareData()"
+        class="bg-green-600 text-white px-6 py-3 mt-4 rounded">
+Save Prescription
+</button>
+
+</form>
+</div>
+
+<script>
+function addRow(){
+    const box = document.getElementById("medBox");
+    box.appendChild(box.children[0].cloneNode(true));
+}
+
+function prepareData(){
+    let text = "";
+    document.querySelectorAll("#medBox > div").forEach((row,i)=>{
+        text += `${i+1}. Tab. ${row.querySelector(".med").value} `
+              + `${row.querySelector(".dose").value} - `
+              + `${row.querySelector(".freq").value} x `
+              + `${row.querySelector(".days").value}\n`;
+    });
+    document.getElementById("medicinesData").value = text;
+}
+</script>
+
+</body>
+</html>

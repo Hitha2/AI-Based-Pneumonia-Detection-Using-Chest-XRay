@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prescription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Hide button while printing */
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 p-10">
+
+<div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded">
+
+    <!-- Header + Download Button -->
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold text-blue-700">Prescription</h1>
+        <button onclick="window.print()"
+            class="no-print bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Download
+        </button>
+    </div>
+
+    <p><b>Patient:</b> {{ data[0] }}</p>
+    <p><b>Age:</b> {{ data[1] }} | <b>Gender:</b> {{ data[2] }}</p>
+    <p><b>Date:</b> {{ data[6] }}</p>
+
+    <hr class="my-4">
+
+    <h2 class="font-bold">Medicines</h2>
+    <pre class="bg-gray-100 p-4 rounded">{{ data[3] }}</pre>
+
+    <h2 class="font-bold mt-3">Advice</h2>
+    <p>{{ data[4] }}</p>
+
+    <h2 class="font-bold mt-3">Follow-up</h2>
+    <p>{{ data[5] }}</p>
+
+</div>
+
+</body>
+</html>

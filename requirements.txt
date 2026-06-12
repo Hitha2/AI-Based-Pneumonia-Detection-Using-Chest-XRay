@@ -1,0 +1,9 @@
+flask==3.0.2
+tensorflow==2.15.0
+numpy==1.26.4
+pillow==10.3.0
+bcrypt==4.1.2
+werkzeug==3.0.1
+opencv-python==4.9.0.80
+scikit-learn==1.4.1.post1
+matplotlib==3.8.3

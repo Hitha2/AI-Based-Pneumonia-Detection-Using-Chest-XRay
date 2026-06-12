@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient History</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen p-10">
+
+<div class="max-w-6xl mx-auto">
+
+    <!-- Title -->
+    <h1 class="text-4xl font-bold text-center mb-10 text-blue-700">
+        Patient History
+    </h1>
+
+    <!-- Back Button -->
+    <div class="mb-6">
+        <a href="{{ url_for('dashboard') }}"
+           class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition">
+            ⬅ Back to Dashboard
+        </a>
+    </div>
+
+    {% if patients %}
+    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+
+        <table class="w-full table-auto text-center">
+            <!-- Table Header -->
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="py-3">Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Prediction</th>
+                    <th>X-ray</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody>
+            {% for p in patients %}
+                <tr class="border-b hover:bg-blue-50 transition">
+
+                    <!-- Name -->
+                    <td class="py-3 font-medium">
+                        {{ p[1] }}
+                    </td>
+
+                    <!-- Age -->
+                    <td>{{ p[2] }}</td>
+
+                    <!-- Gender -->
+                    <td>{{ p[3] }}</td>
+
+                    <!-- Prediction -->
+                    <td class="font-bold
+                        {% if 'pneumonia' in p[5]|lower %}
+                            text-red-600
+                        {% else %}
+                            text-green-600
+                        {% endif %}
+                    ">
+                        {{ p[5] }}
+                    </td>
+
+                    <!-- View X-ray -->
+                    <td>
+                        <a href="{{ url_for('download_image', filename=p[4]) }}"
+                           class="text-blue-600 hover:underline">
+                            View
+                        </a>
+                    </td>
+
+                    <!-- Date -->
+                    <td>{{ p[6] }}</td>
+
+                    <!-- Actions -->
+                    <td class="space-x-1">
+                        <a href="/report/{{ p[0] }}"
+                           class="text-green-600 hover:underline">
+                            View Report
+                        </a>
+                        |
+                        <a href="/download-report/{{ p[0] }}"
+                           class="text-blue-600 hover:underline">
+                            Download
+                        </a>
+                        |
+                         <!-- Add Prescription -->
+                        <a href="/prescription/{{ p[0] }}"
+                             class="text-purple-600 hover:underline">
+                             Prescription
+                        </a>
+                        |
+                        <!-- View Prescription -->
+                        <a href="/view-prescription/{{ p[0] }}"
+                            class="text-teal-600 hover:underline">
+                            View Rx
+                        </a>
+                        |
+                        <a href="/edit/{{ p[0] }}"
+                           class="text-indigo-600 hover:underline">
+                            Edit
+                        </a>
+                        |
+                        <a href="/delete/{{ p[0] }}"
+                           onclick="return confirm('Delete this patient?')"
+                           class="text-red-600 hover:underline">
+                            Delete
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    {% else %}
+        <p class="text-center text-gray-600 mt-10">
+            No patient records available.
+        </p>
+    {% endif %}
+    
+
+</div>
+
+</body>
+</html>

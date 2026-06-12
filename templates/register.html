@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 flex items-center justify-center h-screen">
+
+<div class="bg-white shadow-lg rounded-xl p-10 w-96">
+    <h1 class="text-2xl font-bold text-center mb-6 text-green-700">Doctor Registration</h1>
+
+    <form method="POST" class="space-y-4" onsubmit="return validatePasswords()">
+        <input type="text" name="username" id="username" placeholder="Username" 
+               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+            
+         <input type="email" name="email" placeholder="Email Address" required
+         autocomplete="email"
+         class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
+
+        <input type="password" name="password" id="password" placeholder="Password" 
+               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+
+        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" 
+               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" required>
+
+        <button type="submit" class="bg-green-600 text-white w-full p-3 rounded hover:bg-green-700 transition">
+            Sign Up
+        </button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <p class="text-red-600 text-center mt-3 font-semibold">{{ messages[0] }}</p>
+    {% endif %}
+    {% endwith %}
+
+    <p class="text-center text-gray-600 mt-4">
+        Already have an account? <a href="{{ url_for('login') }}" class="text-blue-500 hover:underline">Login</a>
+    </p>
+</div>
+
+<script>
+    function validatePasswords() {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+</script>
+
+</body>
+</html>
